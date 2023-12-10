@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData temaActual;
+  Color colorTexto;
 
   ThemeProvider({required bool isDarkMode})
-      : temaActual = (isDarkMode) ? ThemeData.dark() : ThemeData.light();
+      : temaActual = (isDarkMode) ? ThemeData.dark() : ThemeData.light(),
+        colorTexto = (isDarkMode) ? Colors.white : Colors.black;
 
   setLight() {
-    print('setLight');
     temaActual = ThemeData.light();
+    colorTexto = Colors.black;
     notifyListeners();
   }
 
   setDark() {
-    print('setDark');
     temaActual = ThemeData.dark();
+    colorTexto = Colors.white;
     notifyListeners();
   }
 }
