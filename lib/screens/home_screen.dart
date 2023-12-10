@@ -12,8 +12,17 @@ class HomeScreen extends StatelessWidget {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Trabajo Practico Final'),
+          title: Text(
+            'GamePedia',
+            style: TextStyle(
+              color: temaProvider.colorTexto,
+              fontSize: 23,
+              fontWeight: FontWeight.bold
+            ),
+          ),
           centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           actions: [
             Switch(
                 value: Preferences.darkmode,
@@ -21,7 +30,9 @@ class HomeScreen extends StatelessWidget {
                   Preferences.darkmode = value;
                   (value) ? temaProvider.setDark() : temaProvider.setLight();
                 })
-          ]),
+          ],
+          iconTheme: Theme.of(context).iconTheme,
+          ),
       drawer: DrawerMenu(),
       body: const Center(
           child: Text('Ezequiel Peralta Martin, Tatiana Gutierrez')),
