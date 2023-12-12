@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     Juego('The Last of Us',
         'https://m.media-amazon.com/images/I/71-hlREKk6L.jpg'),
     Juego("Elden Ring",
-        'https://static.displate.com/280x392/displate/2023-02-09/4b29d0c61c49bc00ef473c5e5d6365fe_3947dc0bd54c512ce59f6e2d5afd7013.jpg'), 
+        'https://static.displate.com/280x392/displate/2023-02-09/4b29d0c61c49bc00ef473c5e5d6365fe_3947dc0bd54c512ce59f6e2d5afd7013.jpg'),
     Juego('Watch Dogs',
         'https://cdn1.epicgames.com/offer/ecebf45065bc4993abfe0e84c40ff18e/WDOG_StorePortrait_1200x1600_1200x1600-784cb50255584d5f17da73f3f8b62fe0')
   ];
@@ -23,52 +23,45 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: true);
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'GamePedia',
-            style: TextStyle(
-                color: temaProvider.colorTexto,
-                fontSize: 23,
-                fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            Switch(
-                value: Preferences.darkmode,
-                onChanged: (bool value) {
-                  Preferences.darkmode = value;
-                  (value) ? temaProvider.setDark() : temaProvider.setLight();
-                })
-          ],
-          iconTheme: Theme.of(context).iconTheme,
+      appBar: AppBar(
+        title: Text(
+          'GamePedia',
+          style: TextStyle(
+              color: temaProvider.colorTexto,
+              fontSize: 23,
+              fontWeight: FontWeight.bold),
         ),
-        drawer: DrawerMenu(),
-        body: Column(
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          Switch(
+              value: Preferences.darkmode,
+              onChanged: (bool value) {
+                Preferences.darkmode = value;
+                (value) ? temaProvider.setDark() : temaProvider.setLight();
+              })
+        ],
+        iconTheme: Theme.of(context).iconTheme,
+      ),
+      drawer: DrawerMenu(),
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          
           // JUEGO EN GRANDE
-          SizedBox(
-            height: 230,
-            child: _tarjetaJuego(juegos[0])  
-          ),
+          SizedBox(height: 230, child: _tarjetaJuego(juegos[0])),
 
-           // TÍTULO
+          // TÍTULO
           const Padding(
             padding: EdgeInsets.only(
               left: 16.0,
-              top: 8.0,
+              top: 18.0,
               right: 16.0,
-              bottom: 8.0,
+              bottom: 10.0,
             ),
             child: Text(
               "What's New",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
           ),
 
@@ -80,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisSpacing: 8.0, // Espaciado entre columnas
                 mainAxisSpacing: 8.0, // Espaciado entre filas
                 childAspectRatio: 0.9,
-                ),
+              ),
               itemCount: juegos.length - 1,
               itemBuilder: (context, index) {
                 return _tarjetaJuego(juegos[index + 1]);
@@ -94,25 +87,29 @@ class HomeScreen extends StatelessWidget {
 
   Widget _tarjetaJuego(Juego juego) {
     return Card(
-      child: Column(
+      child: Stack(
         children: [
-          Flexible(
-            child: Image.network(
-              juego.imagenPath,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+          Image.network(
+            juego.imagenUrl,
+            width: double.infinity,
+            fit: BoxFit.cover,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              juego.titulo,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+
+          Positioned(
+            bottom: 0,
+            child: Container(
+              color: Colors.black.withOpacity(0.6),
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                juego.titulo,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -121,7 +118,7 @@ class HomeScreen extends StatelessWidget {
 
 class Juego {
   final String titulo;
-  final String imagenPath;
+  final String imagenUrl;
 
-  Juego(this.titulo, this.imagenPath);
+  Juego(this.titulo, this.imagenUrl);
 }
