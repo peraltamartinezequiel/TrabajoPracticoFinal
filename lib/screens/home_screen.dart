@@ -55,6 +55,23 @@ class HomeScreen extends StatelessWidget {
             child: _tarjetaJuego(juegos[0])  
           ),
 
+           // TÍTULO
+          const Padding(
+            padding: EdgeInsets.only(
+              left: 16.0,
+              top: 8.0,
+              right: 16.0,
+              bottom: 8.0,
+            ),
+            child: Text(
+              "What's New",
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
+
           // JUEGOS EN COLUMNAS
           Expanded(
             child: GridView.builder(
