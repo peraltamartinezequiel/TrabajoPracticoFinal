@@ -7,12 +7,14 @@ import 'package:trabajo_practico_final/widgets/drawer_menu.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final List<Juego> juegos = [
-    Juego('Halo',
+    Juego('Halo Infinite',
         'https://i.blogs.es/a19748/halo-infinite-portada-02/450_1000.webp'),
-    Juego('Tom Rider',
-        'https://m.media-amazon.com/images/M/MV5BZDkxMjExZjgtYWQwMi00OGYxLTgwZmMtMWY2MWU0ZTBkNGM0XkEyXkFqcGdeQXVyNTgyNTA4MjM@._V1_.jpg'),
+    Juego('Starfield ',
+        'https://m.media-amazon.com/images/I/81fwGFBXWFL._AC_UF894,1000_QL80_.jpg'),
     Juego('The Last of Us',
         'https://m.media-amazon.com/images/I/71-hlREKk6L.jpg'),
+    Juego("Elden Ring",
+        'https://static.displate.com/280x392/displate/2023-02-09/4b29d0c61c49bc00ef473c5e5d6365fe_3947dc0bd54c512ce59f6e2d5afd7013.jpg'), 
     Juego('Watch Dogs',
         'https://cdn1.epicgames.com/offer/ecebf45065bc4993abfe0e84c40ff18e/WDOG_StorePortrait_1200x1600_1200x1600-784cb50255584d5f17da73f3f8b62fe0')
   ];
@@ -43,18 +45,33 @@ class HomeScreen extends StatelessWidget {
           iconTheme: Theme.of(context).iconTheme,
         ),
         drawer: DrawerMenu(),
-        body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Número de columnas
-            crossAxisSpacing: 8.0, // Espaciado entre columnas
-            mainAxisSpacing: 8.0, // Espaciado entre filas
-            //childAspectRatio: 0.8,
+        body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          
+          // JUEGO EN GRANDE
+          SizedBox(
+            height: 230,
+            child: _tarjetaJuego(juegos[0])  
           ),
-          itemCount: juegos.length,
-          itemBuilder: (context, index) {
-            return _tarjetaJuego(juegos[index]);
-          },
-        )
+
+          // JUEGOS EN COLUMNAS
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Número de columnas
+                crossAxisSpacing: 8.0, // Espaciado entre columnas
+                mainAxisSpacing: 8.0, // Espaciado entre filas
+                childAspectRatio: 0.9,
+                ),
+              itemCount: juegos.length - 1,
+              itemBuilder: (context, index) {
+                return _tarjetaJuego(juegos[index + 1]);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -65,7 +82,6 @@ class HomeScreen extends StatelessWidget {
           Flexible(
             child: Image.network(
               juego.imagenPath,
-              height: 200,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
