@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:trabajo_practico_final/helpers/preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:trabajo_practico_final/screens/home_screen.dart';
 import 'screens/screens.dart';
 
 void main() async {

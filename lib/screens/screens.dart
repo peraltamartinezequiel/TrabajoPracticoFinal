@@ -1,1 +1,1 @@
-export 'package:trabajo_practico_final/screens/screen_home.dart';
+export 'package:trabajo_practico_final/screens/home_screen.dart';
