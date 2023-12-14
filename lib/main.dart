@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'GamePedia App',
         theme: Provider.of<ThemeProvider>(context, listen: true).temaActual,
         debugShowCheckedModeBanner: false,
         initialRoute: 'home',
-        routes: {'home': (context) => const HomeScreen()});
+        routes: {'home': (context) => HomeScreen()});
   }
 }
