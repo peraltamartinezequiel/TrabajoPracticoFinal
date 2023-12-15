@@ -22,6 +22,13 @@ class MyApp extends StatelessWidget {
         theme: Provider.of<ThemeProvider>(context, listen: true).temaActual,
         debugShowCheckedModeBanner: false,
         initialRoute: 'home',
-        routes: {'home': (context) => const HomeScreen()});
+        routes: {
+          'home': (context) => const HomeScreen(),
+          'listadoRegistrosPersonajes': (context) =>
+              const ListadoRegistrosPersonajes(),
+          'listadoRegistroPersonaje': (context) =>
+              const ListadoRegistroPersonaje(),
+          'cardPersonaje': (context) => const CardPersonaje(),
+        });
   }
 }
