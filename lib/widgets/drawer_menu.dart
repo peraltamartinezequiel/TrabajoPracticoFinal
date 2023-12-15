@@ -17,7 +17,8 @@ class DrawerMenu extends StatelessWidget {
       'route': 'cardPersonaje',
       'title': 'Card de personaje',
       'subtitle': 'Muestro un personaje en una card'
-    }
+    },
+    {'route': 'game_list', 'title': 'GameList', 'subtitle': ''}
   ];
 
   DrawerMenu({super.key});
