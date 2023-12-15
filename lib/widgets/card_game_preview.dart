@@ -9,6 +9,7 @@ class CardGamePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 4.0,
       child: Stack(
         children: [
           Image.network(
