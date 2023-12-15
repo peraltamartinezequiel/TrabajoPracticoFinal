@@ -25,10 +25,12 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: 'home',
         routes: {
-          'home': (context) => HomeScreen(),
-          'game_list': (context) => GameList()
-        }
-        
-        );
+          'home': (context) => const HomeScreen(),
+          'listadoRegistrosPersonajes': (context) =>
+              const ListadoRegistrosPersonajes(),
+          'listadoRegistroPersonaje': (context) =>
+              const ListadoRegistroPersonaje(),
+          'cardPersonaje': (context) => const CardPersonaje(),
+          'game_list': (context) => const GameList()
   }
 }
