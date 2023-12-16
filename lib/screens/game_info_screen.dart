@@ -84,7 +84,14 @@ class CardCoverAndName extends StatelessWidget {
                       fontSize: 45,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
-                      fontFamily: 'Roboto'
+                      fontFamily: 'Roboto',
+                      shadows: [
+                        Shadow(
+                          blurRadius: 5.0,
+                          color: Colors.black,
+                          offset: Offset(3.0, 3.0),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: 10),
