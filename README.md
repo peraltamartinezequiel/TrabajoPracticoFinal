@@ -8,9 +8,9 @@ Estamos intentando implementar un prototipo de aplicación con Flutter y Dart pa
   <ol>
     <li><a href="#arriba">Título y descripción del proyecto</a></li>
     <li><a href="#tecnologias">Tecnologías utilizadas</a></li>
-    <li><a href="#api-android"></a></li>
-    <li><a href="#instalacion-flutter">Instalación</a></li>
-    <li><a href="#instalacion-android"></a></li>
+    <li><a href="#api-android"></a>Versión de Android utilizada</li>
+    <li><a href="#instalacion-flutter">Instalación Flutter</a></li>
+    <li><a href="#instalacion-android">Instalación Android Studio</a></li>
     <li><a href="#funcionalidad">Funcionalidad de la App</a></li>
     <li><a href="#desarrolladores">Desarrolladores</a></li>
   </ol>
@@ -128,11 +128,11 @@ Tecnologías utilizadas
   La aplicación cuenta con los siguientes ¿sreens:
   <ul>
     <li>CardPersonaje()</li>
-    <li>GameList()</li>
+    <li>GameInfoScreen()</li>
+    <li>GameListScreen</li>
     <li>HomeScreen()</li>
     <li>ListadoRegistroPersonaje()</li>
     <li>ListadoRegostrosPersonajes()</li>
-    <li>/personajes/populares_params?name={nombre}&slug={slug}</li>
   </ul>
   <p align="right">(<a href="#arriba">Ir arriba</a>)</p>
 
