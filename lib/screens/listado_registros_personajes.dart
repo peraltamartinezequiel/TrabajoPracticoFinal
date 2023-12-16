@@ -563,10 +563,6 @@ class ListadoRegistrosPersonajes extends StatelessWidget {
           ultima_aparicion: 'Call of Duty Modern Warfare 3 (2023)',
           creado_por: 'Infinity Ward'),
     ];
-    Personaje? personajeSeleccionado;
-    Personaje? buscarPersonaje(String nombre) {
-      return personajes.firstWhere((personaje) => personaje.nombre == nombre);
-    }
 
     return Scaffold(
         appBar: AppBar(
