@@ -2,7 +2,21 @@ import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {
   final List<Map<String, String>> _itemsMenu = <Map<String, String>>[
-    {'route': 'home', 'title': 'Home', 'subtitle': 'Home + counter app'},
+    {
+      'route': 'home', 
+      'title': 'Home', 
+      'subtitle': 'Home'
+    },
+    {
+      'route': 'game_list', 
+      'title': 'Explore Games', 
+      'subtitle': 'Lista de registros juegos'
+    },
+    {
+      'route': 'game_info', 
+      'title': 'Game information', 
+      'subtitle': 'Registro individual de juego'
+    },
     {
       'route': 'listadoRegistrosPersonajes',
       'title': 'Registro de Personajes',
@@ -17,8 +31,7 @@ class DrawerMenu extends StatelessWidget {
       'route': 'cardPersonaje',
       'title': 'Card de personaje',
       'subtitle': 'Muestro un personaje en una card'
-    },
-    {'route': 'game_list', 'title': 'GameList', 'subtitle': ''}
+    }
   ];
 
   DrawerMenu({super.key});
