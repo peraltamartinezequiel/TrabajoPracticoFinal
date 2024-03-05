@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:trabajo_practico_final/main.dart';
-import 'package:trabajo_practico_final/models/game_info_preview.dart';
+import 'package:trabajo_practico_final/models/game_info.dart';
 
 class CardGamePreview extends StatelessWidget {
-  final GameInfoPreview game;
+  final GameInfo game;
 
   const CardGamePreview({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onDoubleTap: () {
+      onTap: () {
         navigateToGameInfo(context, game);
       },
       child: Card(

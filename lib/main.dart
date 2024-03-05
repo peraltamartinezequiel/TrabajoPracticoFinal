@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trabajo_practico_final/models/game_info_preview.dart';
+import 'package:trabajo_practico_final/models/game_info.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:trabajo_practico_final/helpers/preferences.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void navigateToGameInfo(BuildContext context, GameInfoPreview game) {
+void navigateToGameInfo(BuildContext context, GameInfo game) {
   Navigator.push(
     context,
     MaterialPageRoute(

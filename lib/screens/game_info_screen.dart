@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trabajo_practico_final/models/game_info_preview.dart';
+import 'package:trabajo_practico_final/models/game_info.dart';
 import 'package:intl/intl.dart';
 
 class GameInfoScreen extends StatelessWidget {
-  final GameInfoPreview game;
+  final GameInfo game;
 
   const GameInfoScreen({super.key, required this.game});
 
@@ -49,8 +49,11 @@ class GameInfoScreen extends StatelessWidget {
   }
 }
 
-Widget _buildNoInformationMessage(GameInfoPreview game, BuildContext context) {
-  if (game.summary == null && game.genres == null && game.platforms == null && game.totalRating == null) {
+Widget _buildNoInformationMessage(GameInfo game, BuildContext context) {
+  if (game.summary == null &&
+      game.genres == null &&
+      game.platforms == null &&
+      game.totalRating == null) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Center(
@@ -98,7 +101,7 @@ class CardCoverAndName extends StatelessWidget {
     Key? key,
     required this.size,
     required this.name,
-    required this.cover, 
+    required this.cover,
     this.firstReleaseDate,
   }) : super(key: key);
 
@@ -154,8 +157,10 @@ class CardCoverAndName extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text(
                       firstReleaseDate != null
-                        ? DateFormat('yyyy-MM-dd').format(DateTime.fromMicrosecondsSinceEpoch(firstReleaseDate! * 1000000))
-                        : '',
+                          ? DateFormat('yyyy-MM-dd').format(
+                              DateTime.fromMicrosecondsSinceEpoch(
+                                  firstReleaseDate! * 1000000))
+                          : '',
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.white,
