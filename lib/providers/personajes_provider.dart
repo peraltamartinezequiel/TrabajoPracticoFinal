@@ -11,7 +11,7 @@ class PersonajesProvider extends ChangeNotifier {
   }
   Future<List<Personaje>> getPersonajes() async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:3000/api/v1/personajes/populares'));
+        .get(Uri.parse('https://trabajo-practico-1.onrender.com/api/v1/personajes/populares'));
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body)['data'];
       personajes =
