@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:trabajo_practico_final/providers/personaje_id_provider.dart';
 import 'package:trabajo_practico_final/providers/personaje_params_provider.dart';
 import 'package:trabajo_practico_final/providers/personajes_provider.dart';
+import 'package:trabajo_practico_final/models/game_info_preview.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:trabajo_practico_final/helpers/preferences.dart';
 import 'package:provider/provider.dart';
-import 'package:trabajo_practico_final/screens/game_list_screen.dart';
-import 'package:trabajo_practico_final/screens/home_screen.dart';
 import 'screens/screens.dart';
 
 void main() async {
@@ -42,7 +41,15 @@ class MyApp extends StatelessWidget {
               const ListadoRegistroPersonaje(),
           'cardPersonaje': (context) => const CardPersonaje(),
           'game_list': (context) => const GameList(),
-          'game_info': (context) => const GameInfoScreen()
         });
   }
+}
+
+void navigateToGameInfo(BuildContext context, GameInfoPreview game) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => GameInfoScreen(game: game),
+    ),
+  );
 }
