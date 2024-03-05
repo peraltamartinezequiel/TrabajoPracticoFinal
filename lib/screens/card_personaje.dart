@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trabajo_practico_final/helpers/preferences.dart';
+import 'package:trabajo_practico_final/providers/personaje_id_provider.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:trabajo_practico_final/widgets/drawer_menu.dart';
-import 'package:trabajo_practico_final/models/personaje.dart';
 
 class CardPersonaje extends StatelessWidget {
   const CardPersonaje({super.key});
@@ -11,17 +11,8 @@ class CardPersonaje extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: true);
-    final Personaje? personaje = Personaje(
-        imagen:
-            'https://static.wikia.nocookie.net/cod/images/7/7c/Simon_Riley_remasterizado.jpg/revision/latest?cb=20210621183707&path-prefix=es',
-        nombre: 'Simon (Ghost) Riley',
-        aka: 'Ghost',
-        nacionalidad: 'Britanico/Ingles',
-        raza: 'Humano',
-        sexo: 'Masculino',
-        primera_aparicion: 'Call of Duty Modern Warfare 2 (2009)',
-        ultima_aparicion: 'Call of Duty Modern Warfare 3 (2023)',
-        creado_por: 'Infinity Ward');
+    final personajeId = Provider.of<PersonajeIdProvider>(context);
+    personajeId.getPersonajeId(6636);
     return Scaffold(
         appBar: AppBar(
             title: const Text('Card de personaje'),
@@ -35,7 +26,7 @@ class CardPersonaje extends StatelessWidget {
                   })
             ]),
         drawer: DrawerMenu(),
-        body: personaje != null
+        body: personajeId.personaje != null
             ? Center(
                 child: SizedBox(
                     width: 300,
@@ -46,15 +37,6 @@ class CardPersonaje extends StatelessWidget {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Image.network(
-                                personaje.imagen,
-                                width: 150,
-                                height: 150,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Icon(Icons.error);
-                                },
-                              ),
                               Padding(
                                   padding: EdgeInsets.all(16),
                                   child: Column(
@@ -62,7 +44,7 @@ class CardPersonaje extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Nombre: ${personaje.nombre}',
+                                          'id: ${personajeId.personaje?.id}',
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -70,7 +52,7 @@ class CardPersonaje extends StatelessWidget {
                                         ),
                                         SizedBox(height: 16.0),
                                         Text(
-                                          'Nacionalidad: ${personaje.nacionalidad}',
+                                          'name: ${personajeId.personaje?.name}',
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -78,7 +60,7 @@ class CardPersonaje extends StatelessWidget {
                                         ),
                                         SizedBox(height: 16.0),
                                         Text(
-                                          'Raza: ${personaje.raza}',
+                                          'slug: ${personajeId.personaje?.slug}',
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -86,7 +68,7 @@ class CardPersonaje extends StatelessWidget {
                                         ),
                                         SizedBox(height: 16.0),
                                         Text(
-                                          'Sexo: ${personaje.sexo}',
+                                          'url: ${personajeId.personaje?.url}',
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,

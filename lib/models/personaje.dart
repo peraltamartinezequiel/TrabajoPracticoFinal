@@ -1,21 +1,25 @@
 class Personaje {
-  String imagen;
-  String? nombre;
-  String? aka;
-  String? nacionalidad;
-  String? raza;
-  String? sexo;
-  String? primera_aparicion;
-  String? ultima_aparicion;
-  String? creado_por;
+  int id;
+  int? created_at;
+  String? name;
+  String? slug;
+  int? updated_at;
+  String url;
+  String? checksum;
   Personaje(
-      {required this.imagen,
-      this.nombre,
-      this.aka,
-      this.nacionalidad,
-      this.raza,
-      this.sexo,
-      this.primera_aparicion,
-      this.ultima_aparicion,
-      this.creado_por});
+      {required this.id,
+      this.created_at,
+      this.name,
+      this.slug,
+      this.updated_at,
+      required this.url,
+      this.checksum});
+  factory Personaje.fromJson(Map<String, dynamic> json) => Personaje(
+      id: json['id'],
+      created_at: json['created_at'],
+      name: json['name'],
+      slug: json['slug'],
+      updated_at: json['updated_at'],
+      url: json['url'],
+      checksum: json['checksum']);
 }

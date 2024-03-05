@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trabajo_practico_final/providers/personaje_id_provider.dart';
+import 'package:trabajo_practico_final/providers/personaje_params_provider.dart';
+import 'package:trabajo_practico_final/providers/personajes_provider.dart';
 import 'package:trabajo_practico_final/models/game_info_preview.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:trabajo_practico_final/helpers/preferences.dart';
@@ -10,7 +13,14 @@ void main() async {
   await Preferences.initShared();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ThemeProvider>(
-        create: (_) => ThemeProvider(isDarkMode: Preferences.darkmode))
+        create: (_) => ThemeProvider(isDarkMode: Preferences.darkmode)),
+    ChangeNotifierProvider<PersonajesProvider>(
+        create: (_) => PersonajesProvider()),
+    ChangeNotifierProvider<PersonajeParamsProvider>(
+        create: (_) => PersonajeParamsProvider(
+            name: Preferences.name, slug: Preferences.slug)),
+    ChangeNotifierProvider<PersonajeIdProvider>(
+        create: (_) => PersonajeIdProvider(id: Preferences.id)),
   ], child: const MyApp()));
 }
 
