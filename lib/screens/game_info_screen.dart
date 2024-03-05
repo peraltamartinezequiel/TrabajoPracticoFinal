@@ -29,7 +29,7 @@ class GameInfoScreen extends StatelessWidget {
                 name: game.name,
                 cover: game.cover,
                 firstReleaseDate: game.firstReleaseDate),
-            if (game.summary != null) CardSummary(summary: game.summary ?? ''),
+            if (game.summary != null) CardSummary(summary: game.summary!),
 
             if (game.genres != null || game.platforms != null || game.totalRating != null)
               MoreInformation(
@@ -37,10 +37,51 @@ class GameInfoScreen extends StatelessWidget {
                 platforms: game.platforms,
                 totalRating: game.totalRating,
               ),
+
+            _buildNoInformationMessage(game, context)
           ],
         ),
       ),
     );
+  }
+}
+
+Widget _buildNoInformationMessage(GameInfoPreview game, BuildContext context) {
+  if (game.summary == null && game.genres == null && game.platforms == null && game.totalRating == null) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.4,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/Pixel_Art-512.png',
+              width: 150,
+              height: 150,
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'No information available',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'We\'re sorry, but we hope to have more information soon!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  } else {
+    return const SizedBox();
   }
 }
 
