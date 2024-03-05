@@ -17,7 +17,10 @@ class GameInfoScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         child: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
-          Navigator.pushReplacementNamed(context, 'home');
+          Navigator.popUntil(context, (route) {
+            final currentRoute = route.settings.name;
+            return currentRoute == 'home' || currentRoute == 'game_list';
+          });
         },
       ),
       body: SingleChildScrollView(
@@ -30,14 +33,14 @@ class GameInfoScreen extends StatelessWidget {
                 cover: game.cover,
                 firstReleaseDate: game.firstReleaseDate),
             if (game.summary != null) CardSummary(summary: game.summary!),
-
-            if (game.genres != null || game.platforms != null || game.totalRating != null)
+            if (game.genres != null ||
+                game.platforms != null ||
+                game.totalRating != null)
               MoreInformation(
                 genres: game.genres,
                 platforms: game.platforms,
                 totalRating: game.totalRating,
               ),
-
             _buildNoInformationMessage(game, context)
           ],
         ),
@@ -168,7 +171,6 @@ class CardCoverAndName extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class CardSummary extends StatefulWidget {
@@ -180,6 +182,7 @@ class CardSummary extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CardSummaryState createState() => _CardSummaryState();
 }
 
@@ -235,7 +238,7 @@ class MoreInformation extends StatelessWidget {
   final List<String>? platforms;
   final int? totalRating;
 
-  List<Widget> informationWidgets = [];
+  final List<Widget> informationWidgets = [];
 
   MoreInformation({
     Key? key,
