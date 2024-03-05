@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabajo_practico_final/helpers/preferences.dart';
-import 'package:trabajo_practico_final/models/game_info_preview.dart';
+import 'package:trabajo_practico_final/models/game_info.dart';
 import 'package:trabajo_practico_final/providers/games_provider.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -39,15 +39,12 @@ class HomeScreen extends StatelessWidget {
       body: FutureBuilder(
         future: GamesProvider.getGames(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-
           } else {
-            List<GameInfoPreview> games = snapshot.data;
+            List<GameInfo> games = snapshot.data;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

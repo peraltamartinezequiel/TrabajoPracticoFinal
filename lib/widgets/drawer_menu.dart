@@ -13,11 +13,6 @@ class DrawerMenu extends StatelessWidget {
       'subtitle': 'Lista de registros juegos'
     },
     {
-      'route': 'game_info', 
-      'title': 'Game information', 
-      'subtitle': 'Registro individual de juego'
-    },
-    {
       'route': 'listadoRegistrosPersonajes',
       'title': 'Registro de Personajes',
       'subtitle': 'Informacion de cada personaje'

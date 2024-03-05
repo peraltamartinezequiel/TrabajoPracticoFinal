@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trabajo_practico_final/models/game_info_preview.dart';
+import 'package:trabajo_practico_final/models/game_info.dart';
 import 'package:intl/intl.dart';
 
 class GameInfoScreen extends StatelessWidget {
-  final GameInfoPreview game;
+  final GameInfo game;
 
   const GameInfoScreen({super.key, required this.game});
 
@@ -17,7 +17,10 @@ class GameInfoScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         child: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
-          Navigator.pushReplacementNamed(context, 'home');
+          Navigator.popUntil(context, (route) {
+            final currentRoute = route.settings.name;
+            return currentRoute == 'home' || currentRoute == 'game_list';
+          });
         },
       ),
       body: SingleChildScrollView(
@@ -29,18 +32,62 @@ class GameInfoScreen extends StatelessWidget {
                 name: game.name,
                 cover: game.cover,
                 firstReleaseDate: game.firstReleaseDate),
-            if (game.summary != null) CardSummary(summary: game.summary ?? ''),
-
-            if (game.genres != null || game.platforms != null || game.totalRating != null)
+            if (game.summary != null) CardSummary(summary: game.summary!),
+            if (game.genres != null ||
+                game.platforms != null ||
+                game.totalRating != null)
               MoreInformation(
                 genres: game.genres,
                 platforms: game.platforms,
                 totalRating: game.totalRating,
               ),
+            _buildNoInformationMessage(game, context)
           ],
         ),
       ),
     );
+  }
+}
+
+Widget _buildNoInformationMessage(GameInfo game, BuildContext context) {
+  if (game.summary == null &&
+      game.genres == null &&
+      game.platforms == null &&
+      game.totalRating == null) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.4,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/Pixel_Art-512.png',
+              width: 150,
+              height: 150,
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'No information available',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'We\'re sorry, but we hope to have more information soon!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  } else {
+    return const SizedBox();
   }
 }
 
@@ -54,7 +101,7 @@ class CardCoverAndName extends StatelessWidget {
     Key? key,
     required this.size,
     required this.name,
-    required this.cover, 
+    required this.cover,
     this.firstReleaseDate,
   }) : super(key: key);
 
@@ -110,8 +157,10 @@ class CardCoverAndName extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text(
                       firstReleaseDate != null
-                        ? DateFormat('yyyy-MM-dd').format(DateTime.fromMicrosecondsSinceEpoch(firstReleaseDate! * 1000000))
-                        : '',
+                          ? DateFormat('yyyy-MM-dd').format(
+                              DateTime.fromMicrosecondsSinceEpoch(
+                                  firstReleaseDate! * 1000000))
+                          : '',
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -127,7 +176,6 @@ class CardCoverAndName extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class CardSummary extends StatefulWidget {
@@ -139,6 +187,7 @@ class CardSummary extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CardSummaryState createState() => _CardSummaryState();
 }
 
@@ -194,7 +243,7 @@ class MoreInformation extends StatelessWidget {
   final List<String>? platforms;
   final int? totalRating;
 
-  List<Widget> informationWidgets = [];
+  final List<Widget> informationWidgets = [];
 
   MoreInformation({
     Key? key,

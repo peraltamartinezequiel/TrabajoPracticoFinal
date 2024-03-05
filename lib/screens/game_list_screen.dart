@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trabajo_practico_final/models/game_info_preview.dart';
+import 'package:trabajo_practico_final/models/game_info.dart';
 import 'package:trabajo_practico_final/providers/games_provider.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:trabajo_practico_final/widgets/card_game_preview.dart';
@@ -50,7 +50,7 @@ class _GameListState extends State<GameList> {
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
-                List<GameInfoPreview> games = snapshot.data;
+                List<GameInfo> games = snapshot.data;
 
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -67,8 +67,6 @@ class _GameListState extends State<GameList> {
                   },
                 );
               }
-          }
-        )
-    );
+            }));
   }
 }
