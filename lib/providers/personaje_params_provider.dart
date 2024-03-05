@@ -14,7 +14,7 @@ class PersonajeParamsProvider extends ChangeNotifier {
         'http://10.0.2.2:3000/api/v1/personajes/populares_params?name=$name&slug=$slug'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body)['data'];
-      personaje = data.map((personaje) => Personaje.fromJson(personaje));
+      personaje = Personaje.fromJson(data[0]);
       return this.personaje;
     } else {
       throw Exception('No se pudo cargar el personaje');

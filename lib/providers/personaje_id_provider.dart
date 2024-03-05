@@ -14,7 +14,7 @@ class PersonajeIdProvider extends ChangeNotifier {
         .get(Uri.parse('http://10.0.2.2:3000/api/v1/personajes/populares/$id'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body)['data'];
-      personaje = data.map((personaje) => Personaje.fromJson(personaje));
+      personaje = Personaje.fromJson(data[0]);
       return this.personaje;
     } else {
       throw Exception('No se pudo cargar el personaje');

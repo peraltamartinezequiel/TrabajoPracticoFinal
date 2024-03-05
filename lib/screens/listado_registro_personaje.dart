@@ -47,10 +47,6 @@ class ListadoRegistroPersonaje extends StatelessWidget {
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
-                                'games: ${personajeParams.personaje?.games}',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              Text(
                                 'name: ${personajeParams.personaje?.name}',
                                 style: TextStyle(fontSize: 16),
                               ),
