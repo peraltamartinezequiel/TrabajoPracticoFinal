@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-/*
-  NOTA: los datos están harcodeados por el momento
-*/
+import 'package:trabajo_practico_final/models/game_info_preview.dart';
 
 class GameInfoScreen extends StatelessWidget {
-  const GameInfoScreen({super.key});
+  final GameInfoPreview game;
+
+  const GameInfoScreen({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +14,7 @@ class GameInfoScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.transparent,
-        child: const Icon(
-          Icons.arrow_back,
-          color: Colors.white
-        ),
+        child: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
           Navigator.pushReplacementNamed(context, 'home');
         },
@@ -27,7 +23,7 @@ class GameInfoScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            CardCoverAndName(size: size),
+            CardCoverAndName(size: size, name: game.name, cover: game.cover),
             const CardSummary(),
             const MoreInformation()
           ],
@@ -39,22 +35,26 @@ class GameInfoScreen extends StatelessWidget {
 
 class CardCoverAndName extends StatelessWidget {
   final Size size;
+  final String name;
+  final String cover;
 
   const CardCoverAndName({
     Key? key,
     required this.size,
+    required this.name,
+    required this.cover,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: size.height * 0.50, 
+      height: size.height * 0.50,
       child: Card(
         elevation: 4.0,
         child: Stack(
           children: [
             Image.network(
-              'https://m.media-amazon.com/images/I/81fwGFBXWFL._AC_UF894,1000_QL80_.jpg',
+              cover,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -74,37 +74,37 @@ class CardCoverAndName extends StatelessWidget {
                   ),
                 ),
                 padding: const EdgeInsets.all(8.0),
-                child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Starfield',
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                      fontFamily: 'Roboto',
-                      shadows: [
-                        Shadow(
-                          blurRadius: 5.0,
-                          color: Colors.black,
-                          offset: Offset(3.0, 3.0),
-                        ),
-                      ],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontSize: 45,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                        shadows: [
+                          Shadow(
+                            blurRadius: 5.0,
+                            color: Colors.black,
+                            offset: Offset(3.0, 3.0),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    '2023-12-15',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontFamily: 'Roboto',
+                    const SizedBox(height: 10),
+                    const Text(
+                      '2023-12-15',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -158,10 +158,9 @@ class _CardSummaryState extends State<CardSummary> {
               child: Text(
                 showMore ? 'Show less' : 'Show more',
                 style: const TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16
-                ),
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
               ),
             ),
           ),
@@ -170,7 +169,6 @@ class _CardSummaryState extends State<CardSummary> {
     );
   }
 }
-
 
 class MoreInformation extends StatelessWidget {
   const MoreInformation({
@@ -188,9 +186,7 @@ class MoreInformation extends StatelessWidget {
         children: [
           Text(
             'More Information',
-            style: TextStyle(
-              fontSize: 24
-            ),
+            style: TextStyle(fontSize: 24),
           ),
           SizedBox(height: 10),
           Text(
@@ -202,20 +198,15 @@ class MoreInformation extends StatelessWidget {
           SizedBox(height: 10),
           Text(
             'Platforms: Microsoft Windows, Xbox Series X|S',
-            style: TextStyle(
-              fontSize: 18
-            ),
+            style: TextStyle(fontSize: 18),
           ),
           SizedBox(height: 10),
           Text(
             'Total rating: 70',
-            style: TextStyle(
-              fontSize: 18
-            ),
+            style: TextStyle(fontSize: 18),
           ),
         ],
       ),
     );
   }
 }
-
