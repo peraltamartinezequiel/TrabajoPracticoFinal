@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trabajo_practico_final/helpers/preferences.dart';
+import 'package:trabajo_practico_final/providers/personaje_params_provider.dart';
 import 'package:trabajo_practico_final/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:trabajo_practico_final/widgets/drawer_menu.dart';
-import 'package:trabajo_practico_final/models/personaje.dart';
 
 class ListadoRegistroPersonaje extends StatelessWidget {
   const ListadoRegistroPersonaje({super.key});
@@ -11,17 +11,8 @@ class ListadoRegistroPersonaje extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final temaProvider = Provider.of<ThemeProvider>(context, listen: true);
-    final Personaje? personaje = Personaje(
-        imagen:
-            'https://static.wikia.nocookie.net/cod/images/7/7c/Simon_Riley_remasterizado.jpg/revision/latest?cb=20210621183707&path-prefix=es',
-        nombre: 'Simon (Ghost) Riley',
-        aka: 'Ghost',
-        nacionalidad: 'Britanico/Ingles',
-        raza: 'Humano',
-        sexo: 'Masculino',
-        primera_aparicion: 'Call of Duty Modern Warfare 2 (2009)',
-        ultima_aparicion: 'Call of Duty Modern Warfare 3 (2023)',
-        creado_por: 'Infinity Ward');
+    final personajeParams = Provider.of<PersonajeParamsProvider>(context);
+    personajeParams.getPersonajeParams('Captain Price', null);
     return Scaffold(
         appBar: AppBar(
             title: const Text('Registro de personaje'),
@@ -35,57 +26,48 @@ class ListadoRegistroPersonaje extends StatelessWidget {
                   })
             ]),
         drawer: DrawerMenu(),
-        body: personaje != null
+        body: personajeParams.personaje != null
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                    Image.network(
-                      personaje.imagen,
-                      width: 300,
-                      height: 300,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Icon(Icons.error);
-                      },
-                    ),
                     Padding(
                         padding: EdgeInsets.all(16),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Nombre: ${personaje.nombre}',
+                                'id: ${personajeParams.personaje?.id}',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
-                                'aka: ${personaje.aka}',
+                                'created_at: ${personajeParams.personaje?.created_at}',
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
-                                'Nacionalidad: ${personaje.nacionalidad}',
+                                'games: ${personajeParams.personaje?.games}',
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
-                                'Raza: ${personaje.raza}',
+                                'name: ${personajeParams.personaje?.name}',
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
-                                'Sexo: ${personaje.sexo}',
+                                'slug: ${personajeParams.personaje?.slug}',
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
-                                'Primera aparicion: ${personaje.primera_aparicion}',
+                                'updated_at: ${personajeParams.personaje?.updated_at}',
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
-                                'Ultima aparicion: ${personaje.ultima_aparicion}',
+                                'url: ${personajeParams.personaje?.url}',
                                 style: TextStyle(fontSize: 16),
                               ),
                               Text(
-                                'Creado por: ${personaje.creado_por}',
+                                'Creado por: ${personajeParams.personaje?.checksum}',
                                 style: TextStyle(fontSize: 16),
                               ),
                             ]))
