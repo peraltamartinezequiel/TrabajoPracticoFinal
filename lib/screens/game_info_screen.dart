@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabajo_practico_final/models/game_info_preview.dart';
+import 'package:intl/intl.dart';
 
 class GameInfoScreen extends StatelessWidget {
   final GameInfoPreview game;
@@ -23,9 +24,19 @@ class GameInfoScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            CardCoverAndName(size: size, name: game.name, cover: game.cover),
-            const CardSummary(),
-            const MoreInformation()
+            CardCoverAndName(
+                size: size,
+                name: game.name,
+                cover: game.cover,
+                firstReleaseDate: game.firstReleaseDate),
+            if (game.summary != null) CardSummary(summary: game.summary ?? ''),
+
+            if (game.genres != null || game.platforms != null || game.totalRating != null)
+              MoreInformation(
+                genres: game.genres,
+                platforms: game.platforms,
+                totalRating: game.totalRating,
+              ),
           ],
         ),
       ),
@@ -37,12 +48,14 @@ class CardCoverAndName extends StatelessWidget {
   final Size size;
   final String name;
   final String cover;
+  final int? firstReleaseDate;
 
   const CardCoverAndName({
     Key? key,
     required this.size,
     required this.name,
-    required this.cover,
+    required this.cover, 
+    this.firstReleaseDate,
   }) : super(key: key);
 
   @override
@@ -95,9 +108,11 @@ class CardCoverAndName extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      '2023-12-15',
-                      style: TextStyle(
+                    Text(
+                      firstReleaseDate != null
+                        ? DateFormat('yyyy-MM-dd').format(DateTime.fromMicrosecondsSinceEpoch(firstReleaseDate! * 1000000))
+                        : '',
+                      style: const TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontFamily: 'Roboto',
@@ -112,11 +127,15 @@ class CardCoverAndName extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class CardSummary extends StatefulWidget {
+  final String summary;
+
   const CardSummary({
     Key? key,
+    required this.summary,
   }) : super(key: key);
 
   @override
@@ -142,7 +161,7 @@ class _CardSummaryState extends State<CardSummary> {
           ),
           const SizedBox(height: 10),
           Text(
-            "In the year 2330, humanity has ventured beyond our solar system, settling new planets, and living as a spacefaring people. You will join Constellation, the last group of space explorers seeking rare artifacts throughout the galaxy and navigate the vast expanse of space in Bethesda Game Studios' biggest and most ambitious game.",
+            widget.summary,
             style: const TextStyle(fontFamily: 'Roboto', fontSize: 17),
             maxLines: showMore ? null : 5,
             textAlign: TextAlign.justify,
@@ -171,8 +190,17 @@ class _CardSummaryState extends State<CardSummary> {
 }
 
 class MoreInformation extends StatelessWidget {
-  const MoreInformation({
+  final List<String>? genres;
+  final List<String>? platforms;
+  final int? totalRating;
+
+  List<Widget> informationWidgets = [];
+
+  MoreInformation({
     Key? key,
+    this.genres,
+    this.platforms,
+    this.totalRating,
   }) : super(key: key);
 
   @override
@@ -181,32 +209,48 @@ class MoreInformation extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'More Information',
             style: TextStyle(fontSize: 24),
           ),
-          SizedBox(height: 10),
-          Text(
-            'Genres: Role-playing (RPG), Adventure',
-            style: TextStyle(
-              fontSize: 18,
-            ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Platforms: Microsoft Windows, Xbox Series X|S',
-            style: TextStyle(fontSize: 18),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Total rating: 70',
-            style: TextStyle(fontSize: 18),
-          ),
+          if (genres != null && genres!.isNotEmpty) ..._buildGenres(),
+          if (platforms != null && platforms!.isNotEmpty) ..._buildPlatforms(),
+          if (totalRating != null) ..._buildTotalRating(),
         ],
       ),
     );
+  }
+
+  List<Widget> _buildGenres() {
+    return [
+      const SizedBox(height: 10),
+      Text(
+        'Genres: ${genres!.join(", ")}',
+        style: const TextStyle(fontSize: 18),
+      ),
+    ];
+  }
+
+  List<Widget> _buildPlatforms() {
+    return [
+      const SizedBox(height: 10),
+      Text(
+        'Platforms: ${platforms!.join(", ")}',
+        style: const TextStyle(fontSize: 18),
+      ),
+    ];
+  }
+
+  List<Widget> _buildTotalRating() {
+    return [
+      const SizedBox(height: 10),
+      Text(
+        'Total rating: $totalRating',
+        style: const TextStyle(fontSize: 18),
+      ),
+    ];
   }
 }
